@@ -1,6 +1,26 @@
 <resources>
     <string name="app_name">CulinaryCompanion</string>
 
+    <!-- Main -->
+    <string name="app_logo_description">App logo</string>
+
+    <string name="welcome_message">Welcome,\n{user name}\nto your Culinary Companion</string>
+    <string name="add_button">+ ADD</string>
+    <string name="view_button">≡ VIEW</string>
+    <string name="search_button">Search</string>
+
+    <!-- Add recipe -->
+    <string name="cancel">Cancel</string>
+    <string name="add_new_recipe">Add new recipe</string>
+    <string name="recipe_name">Recipe name</string>
+    <string name="recipe_name_hint">e.g. Musacka, Tacos</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="ingredients_hint">e.g. 1 egg, 1 cup flour</string>
+    <string name="instructions">Instructions</string>
+    <string name="instructions_hint">e.g. mix until smooth texture</string>
+    <string name="category">Category</string>
+    <string name="save">SAVE</string>
+
     <string-array name="recipe_categories">
         <item>Breakfast</item>
         <item>Brunch</item>

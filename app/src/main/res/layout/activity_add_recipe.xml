@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="24dp"
@@ -13,22 +14,23 @@
         <!-- Cancel (X) Button Top Left -->
         <ImageButton
             android:id="@+id/cancelButton"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:src="@android:drawable/ic_menu_close_clear_cancel"
             android:background="?android:attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Cancel"
+            android:contentDescription="@string/cancel"
             android:layout_gravity="start"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="16dp"
+            app:tint="#000000" />
 
         <!-- Screen Title -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add new recipe"
+            android:text="@string/add_new_recipe"
             android:textSize="28sp"
             android:textStyle="bold"
-            android:textColor="#0077CC"
+            android:textColor="#0D5BA5"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="24dp" />
 
@@ -36,65 +38,69 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Recipe name"
+            android:text="@string/recipe_name"
             android:textStyle="bold"
-            android:textColor="#003366" />
+            android:textColor="#0D5BA5" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="e.g. Musacka,Tacos" />
+            android:hint="@string/recipe_name_hint"
+            android:inputType="textCapWords"
+            android:autofillHints="name" />
 
         <!-- Ingredients -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ingredients"
+            android:text="@string/ingredients"
             android:textStyle="bold"
-            android:textColor="#003366"
+            android:textColor="#0D5BA5"
             android:layout_marginTop="16dp" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:hint="e.g. 1 eggs, 1 cup flour"
-            android:inputType="textMultiLine" />
+            android:hint="@string/ingredients_hint"
+            android:inputType="textMultiLine"
+            android:autofillHints="emailAddress" />
 
         <!-- Instructions -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Instructions"
+            android:text="@string/instructions"
             android:textStyle="bold"
-            android:textColor="#003366"
+            android:textColor="#0D5BA5"
             android:layout_marginTop="16dp" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="120dp"
-            android:hint="e.g. mix until smooth texture"
-            android:inputType="textMultiLine" />
+            android:hint="@string/instructions_hint"
+            android:inputType="textMultiLine"
+            android:autofillHints="username" />
 
         <!-- Category Spinner -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Category"
+            android:text="@string/category"
             android:textStyle="bold"
-            android:textColor="#003366"
+            android:textColor="#0D5BA5"
             android:layout_marginTop="16dp" />
 
         <Spinner
             android:id="@+id/categorySpinner"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:entries="@array/recipe_categories" />
 
         <!-- SAVE Button -->
         <Button
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="SAVE"
+            android:text="@string/save"
             android:textStyle="bold"
             android:textColor="#000000"
             android:backgroundTint="#FFA500"
