@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/add_new_recipe"
-            android:textSize="28sp"
+            android:textSize="32sp"
             android:textStyle="bold"
             android:textColor="#0D5BA5"
             android:layout_gravity="center_horizontal"
