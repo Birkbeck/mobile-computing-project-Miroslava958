@@ -38,9 +38,6 @@
     <string name="dinner">Dinner</string>
     <string name="dessert">Dessert</string>
     <string name="others">Others</string>
-    <string name="home">Home</string>
-    <string name="add">Add</string>
-    <string name="back">Back</string>
 
     <string name="breakfast_icon_desc">Breakfast icon</string>
     <string name="brunch_icon_desc">Brunch icon</string>
@@ -48,4 +45,17 @@
     <string name="dinner_icon_desc">Dinner icon</string>
     <string name="dessert_icon_desc">Dessert icon</string>
     <string name="others_icon_desc">Others icon</string>
+
+    <!-- List categories -->
+    <string name="breakfast_title">BREAKFAST</string>
+    <string name="brunch_title">BRUNCH</string>
+    <string name="lunch_title">LUNCH</string>
+    <string name="dinner_title">DINNER</string>
+    <string name="dessert_title">DESSERT</string>
+    <string name="others_title">OTHERS</string>
+
+    <!-- Navigation -->
+    <string name="home">Home</string>
+    <string name="add">Add</string>
+    <string name="back">&lt;-</string>
 </resources>

@@ -195,18 +195,21 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/home" />
+            android:text="@string/home"
+            android:backgroundTint="#FFA500" />
 
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/add" />
+            android:text="@string/add"
+            android:backgroundTint="#FFA500" />
 
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/back" />
+            android:text="@string/back"
+            android:backgroundTint="#FFA500" />
     </LinearLayout>
 </RelativeLayout>
