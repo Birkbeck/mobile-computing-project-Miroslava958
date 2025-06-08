@@ -92,15 +92,16 @@
     </LinearLayout>
 
     <!-- Bottom Navigation -->
+    <!-- Bottom Navigation -->
     <LinearLayout
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
         android:gravity="center"
-        android:paddingTop="8dp"
-        android:background="#FFA500">
+        android:background="#FFFFFF"
+        android:paddingTop="8dp">
 
         <Button
             android:layout_width="0dp"
