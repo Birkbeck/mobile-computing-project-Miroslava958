@@ -54,8 +54,17 @@
     <string name="dessert_title">DESSERT</string>
     <string name="others_title">OTHERS</string>
 
+    <!-- Recipe -->
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+
     <!-- Navigation -->
     <string name="home">Home</string>
     <string name="add">Add</string>
     <string name="back">&lt;-</string>
+
+    <!-- additional buttons -->
+    <string name="recipe_title_placeholder">Recipe {Name}</string>
+    <string name="ingredients_placeholder">List of ingredients here…</string>
+    <string name="instructions_placeholder">Recipe instructions go here…</string>
 </resources>
