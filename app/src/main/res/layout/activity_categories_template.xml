@@ -18,14 +18,15 @@
         android:gravity="center"
         android:layout_marginBottom="16dp" />
 
-    <!-- Recipe List by selected category -->
-    <ListView
-        android:id="@+id/recipeListView"
+    <!-- RecyclerView instead of ListView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recipeRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:dividerHeight="1dp"
-        android:background="#FFFFFF" />
+        android:paddingBottom="8dp"
+        android:contentDescription="@string/recipe_list_desc"
+        />
 
     <!-- Bottom Navigation -->
     <LinearLayout

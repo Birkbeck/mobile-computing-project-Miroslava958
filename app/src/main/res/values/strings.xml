@@ -57,6 +57,7 @@
     <!-- Recipe -->
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
+    <string name="recipe_list_desc">List of recipes</string>
 
     <!-- Navigation -->
     <string name="home">Home</string>
