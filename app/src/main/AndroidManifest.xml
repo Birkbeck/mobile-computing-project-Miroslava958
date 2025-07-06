@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CulinaryCompanion"
         tools:targetApi="31">
-        <activity
+        <!--<activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
@@ -22,7 +22,16 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-    </application>
+        </activity>-->
+    <activity
+        android:name=".ui.CategoriesTemplateActivity"
+        android:exported="true"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+    </activity>
 
+    </application>
 </manifest>
