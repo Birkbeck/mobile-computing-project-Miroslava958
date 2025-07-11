@@ -1,5 +1,6 @@
 package com.miroslava958.culinarycompanion.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -10,17 +11,25 @@ import com.miroslava958.culinarycompanion.model.Recipe
  * Adapter for displaying a list of Recipe items using Data Binding.
  */
 class RecipeAdapter(
-    private var recipes: List<Recipe>
+    private var recipes: List<Recipe>,
+    private val onItemClick: (Recipe) -> Unit
 ) : RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
 
+    init {
+        Log.d("Adapter", "Adapter initialized with ${recipes.size} items")  // 🔍 Confirm adapter is constructed
+    }
     /**
      * ViewHolder class that binds the Recipe data to the item layout.
      */
     inner class RecipeViewHolder(private val binding: ItemRecipeBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(recipe: Recipe) {
+            Log.d("RecipeAdapter", "Binding recipe: ${recipe.title}")
             binding.recipe = recipe  // Binds to @{recipe.title}.
             binding.executePendingBindings()
+            binding.root.setOnClickListener {
+                onItemClick(recipe)
+            }
         }
     }
 

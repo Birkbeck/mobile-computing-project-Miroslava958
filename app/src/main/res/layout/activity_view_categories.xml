@@ -42,6 +42,7 @@
                     android:contentDescription="@string/breakfast_icon_desc" />
 
                 <Button
+                    android:id="@+id/btnBreakfast"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -67,6 +68,7 @@
                     android:contentDescription="@string/brunch_icon_desc" />
 
                 <Button
+                    android:id="@+id/btnBrunch"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -92,6 +94,7 @@
                     android:contentDescription="@string/lunch_icon_desc" />
 
                 <Button
+                    android:id="@+id/btnLunch"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -117,6 +120,7 @@
                     android:contentDescription="@string/dinner_icon_desc" />
 
                 <Button
+                    android:id="@+id/btnDinner"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -142,6 +146,7 @@
                     android:contentDescription="@string/dessert_icon_desc" />
 
                 <Button
+                    android:id="@+id/btnDessert"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -167,6 +172,7 @@
                     android:contentDescription="@string/others_icon_desc" />
 
                 <Button
+                    android:id="@+id/btnOthers"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
