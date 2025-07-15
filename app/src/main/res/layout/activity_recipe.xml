@@ -92,7 +92,6 @@
     </LinearLayout>
 
     <!-- Bottom Navigation -->
-    <!-- Bottom Navigation -->
     <LinearLayout
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"

@@ -3,16 +3,22 @@ package com.miroslava958.culinarycompanion.ui
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.miroslava958.culinarycompanion.adapter.RecipeAdapter
 import com.miroslava958.culinarycompanion.databinding.ActivityCategoriesTemplateBinding
-import com.miroslava958.culinarycompanion.model.Recipe
+import com.miroslava958.culinarycompanion.viewmodel.RecipeViewModel
 
 class CategoriesTemplateActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCategoriesTemplateBinding
     private lateinit var adapter: RecipeAdapter
+
+    /* ViewModel – built with the single-argument factory */
+    private val viewModel: RecipeViewModel by viewModels {
+        RecipeViewModel.provideFactory(application)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,35 +34,24 @@ class CategoriesTemplateActivity : AppCompatActivity() {
         // Set the title at the top
         binding.categoryTitle.text = categoryName
 
-        // Dummy recipe data
-        val sampleRecipes = listOf(
-            Recipe(0, "Spaghetti", "Lunch",       "Pasta, sauce …",      "Boil pasta …"),
-            Recipe(0, "Pancakes",  "Breakfast",   "Flour, eggs …",        "Mix & fry …"),
-            Recipe(0, "Chocolate Cake", "Dessert","Flour, cocoa …",       "Bake …"),
-            Recipe(0, "Salad",     "Lunch",       "Lettuce, tomato …",    "Toss …"),
-            Recipe(0, "Toast",     "Breakfast",   "Bread, butter",        "Toast …")
-        )
-
-        // Filter recipes based on the selected category
-        val filteredRecipes = sampleRecipes.filter {
-            it.category.equals(categoryName, ignoreCase = true)
-        }
-
-        // Log to test
-        Log.d("CategoriesTemplate", "Intent category: $categoryName")
-        Log.d("CategoriesTemplate", "Filtered recipes: ${filteredRecipes.size}")
-        filteredRecipes.forEach {
-            Log.d("CategoriesTemplate", "Recipe: ${it.title}")
-        }
-        // Initialize adapter
-        adapter = RecipeAdapter(filteredRecipes) { recipe ->
+        /* ---------- RecyclerView setup ---------- */
+        adapter = RecipeAdapter(emptyList()) { recipe ->
             Toast.makeText(this, "Clicked: ${recipe.title}", Toast.LENGTH_SHORT).show()
         }
-
-        // Setup RecyclerView
         binding.recipeRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.recipeRecyclerView.adapter = adapter
 
-        Log.d("AdapterTest", "Recipes loaded: ${filteredRecipes.size}")
+        /* ---------- Observe Room data ---------- */
+        val liveData =
+            if (categoryName == "All") viewModel.allRecipes
+            else viewModel.recipesByCategory(categoryName)
+
+        liveData.observe(this) { list ->
+            Log.d("CategoriesTemplate", "Loaded ${list.size} recipes")
+            adapter.updateRecipes(list)            // refresh adapter
+            binding.emptyHint.visibility =
+                if (list.isEmpty()) android.view.View.VISIBLE
+                else android.view.View.GONE
+        }
     }
 }

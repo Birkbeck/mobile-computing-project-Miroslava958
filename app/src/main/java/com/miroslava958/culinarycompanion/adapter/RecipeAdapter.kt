@@ -4,6 +4,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.miroslava958.culinarycompanion.R
 import com.miroslava958.culinarycompanion.databinding.ItemRecipeBinding
 import com.miroslava958.culinarycompanion.model.Recipe
 
@@ -34,6 +35,8 @@ class RecipeAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder {
+        Log.d("Adapter-inflate", "layout id = ${R.layout.item_recipe}")
+
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemRecipeBinding.inflate(inflater, parent, false)
         return RecipeViewHolder(binding)
