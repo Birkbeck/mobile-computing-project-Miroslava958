@@ -42,6 +42,7 @@
         android:layout_marginBottom="16dp">
 
         <Button
+            android:id="@+id/btnMainAdd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/add_button"
@@ -50,6 +51,7 @@
             android:backgroundTint="#FFA500" />
 
         <Button
+            android:id="@+id/btnMainView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/view_button"

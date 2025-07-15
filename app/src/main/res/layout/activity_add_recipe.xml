@@ -36,6 +36,7 @@
 
         <!-- Recipe Name -->
         <TextView
+            android:id="@+id/recipeName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/recipe_name"
@@ -51,6 +52,7 @@
 
         <!-- Ingredients -->
         <TextView
+            android:id="@+id/ingredients"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/ingredients"
@@ -67,6 +69,7 @@
 
         <!-- Instructions -->
         <TextView
+            android:id="@+id/instructions"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/instructions"
@@ -98,6 +101,7 @@
 
         <!-- SAVE Button -->
         <Button
+            android:id="@+id/saveButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/save"

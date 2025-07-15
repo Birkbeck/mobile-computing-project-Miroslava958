@@ -30,11 +30,11 @@ class CategoriesTemplateActivity : AppCompatActivity() {
 
         // Dummy recipe data
         val sampleRecipes = listOf(
-            Recipe("Spaghetti", "Lunch"),
-            Recipe("Pancakes", "Breakfast"),
-            Recipe("Chocolate Cake", "Dessert"),
-            Recipe("Salad", "Lunch"),
-            Recipe("Toast", "Breakfast")
+            Recipe(0, "Spaghetti", "Lunch",       "Pasta, sauce …",      "Boil pasta …"),
+            Recipe(0, "Pancakes",  "Breakfast",   "Flour, eggs …",        "Mix & fry …"),
+            Recipe(0, "Chocolate Cake", "Dessert","Flour, cocoa …",       "Bake …"),
+            Recipe(0, "Salad",     "Lunch",       "Lettuce, tomato …",    "Toss …"),
+            Recipe(0, "Toast",     "Breakfast",   "Bread, butter",        "Toast …")
         )
 
         // Filter recipes based on the selected category
