@@ -1,6 +1,8 @@
 package com.miroslava958.culinarycompanion.ui
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -50,6 +52,16 @@ class CategoriesTemplateActivity : AppCompatActivity() {
             binding.emptyHint.visibility =
                 if (shown.isEmpty()) android.view.View.VISIBLE
                 else android.view.View.GONE
+        }
+
+        // ADD button
+        binding.btnMainAdd.setOnClickListener {
+            val intent = Intent(this, AddRecipeActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.btnBack.setOnClickListener {
+            finish() // closes this screen and returns to previous one
         }
     }
 }

@@ -19,6 +19,8 @@ class ViewCategoriesActivity : AppCompatActivity() {
         val btnDinner = findViewById<Button>(R.id.btnDinner)
         val btnBrunch = findViewById<Button>(R.id.btnBrunch)
         val btnOthers = findViewById<Button>(R.id.btnOthers)
+        val btnAdd = findViewById<Button>(R.id.btnMainAdd)
+        val btnBack = findViewById<Button>(R.id.btnBack)
 
         btnBreakfast.setOnClickListener { openCategory("Breakfast") }
         btnLunch.setOnClickListener { openCategory("Lunch") }
@@ -26,6 +28,17 @@ class ViewCategoriesActivity : AppCompatActivity() {
         btnDinner.setOnClickListener { openCategory("Dinner") }
         btnBrunch.setOnClickListener { openCategory("Brunch") }
         btnOthers.setOnClickListener { openCategory("Others") }
+
+        btnAdd.setOnClickListener {
+            Log.d("ViewCategories", "Add button clicked")
+            val intent = Intent(this, AddRecipeActivity::class.java)
+            startActivity(intent)
+        }
+
+        btnBack.setOnClickListener {
+            Log.d("ViewCategories", "Back button clicked")
+            finish()
+        }
     }
 
     private fun openCategory(category: String) {
