@@ -2,47 +2,44 @@ package com.miroslava958.culinarycompanion.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import com.miroslava958.culinarycompanion.R
+import com.miroslava958.culinarycompanion.MainActivity
+import com.miroslava958.culinarycompanion.databinding.ActivityViewCategoriesBinding
 
 class ViewCategoriesActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityViewCategoriesBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_view_categories)
+        binding = ActivityViewCategoriesBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val btnBreakfast = findViewById<Button>(R.id.btnBreakfast)
-        val btnLunch = findViewById<Button>(R.id.btnLunch)
-        val btnDessert = findViewById<Button>(R.id.btnDessert)
-        val btnDinner = findViewById<Button>(R.id.btnDinner)
-        val btnBrunch = findViewById<Button>(R.id.btnBrunch)
-        val btnOthers = findViewById<Button>(R.id.btnOthers)
-        val btnAdd = findViewById<Button>(R.id.btnMainAdd)
-        val btnBack = findViewById<Button>(R.id.btnBack)
+        // Set up button using binding
+        binding.btnBreakfast.setOnClickListener { openCategory("Breakfast") }
+        binding.btnLunch.setOnClickListener { openCategory("Lunch") }
+        binding.btnDessert.setOnClickListener { openCategory("Dessert") }
+        binding.btnDinner.setOnClickListener { openCategory("Dinner") }
+        binding.btnBrunch.setOnClickListener { openCategory("Brunch") }
+        binding.btnOthers.setOnClickListener { openCategory("Others") }
 
-        btnBreakfast.setOnClickListener { openCategory("Breakfast") }
-        btnLunch.setOnClickListener { openCategory("Lunch") }
-        btnDessert.setOnClickListener { openCategory("Dessert") }
-        btnDinner.setOnClickListener { openCategory("Dinner") }
-        btnBrunch.setOnClickListener { openCategory("Brunch") }
-        btnOthers.setOnClickListener { openCategory("Others") }
+        binding.btnHome.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+            startActivity(intent)
+        }
 
-        btnAdd.setOnClickListener {
-            Log.d("ViewCategories", "Add button clicked")
+        binding.btnMainAdd.setOnClickListener {
             val intent = Intent(this, AddRecipeActivity::class.java)
             startActivity(intent)
         }
 
-        btnBack.setOnClickListener {
-            Log.d("ViewCategories", "Back button clicked")
+        binding.btnBack.setOnClickListener {
             finish()
         }
     }
 
     private fun openCategory(category: String) {
-        Log.d("ViewCategories", "Opening category: $category")
         val intent = Intent(this, CategoriesTemplateActivity::class.java)
         intent.putExtra("CATEGORY_NAME", category)
         startActivity(intent)
