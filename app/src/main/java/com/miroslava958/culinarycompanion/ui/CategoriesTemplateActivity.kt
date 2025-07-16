@@ -1,7 +1,6 @@
 package com.miroslava958.culinarycompanion.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -15,42 +14,41 @@ class CategoriesTemplateActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCategoriesTemplateBinding
     private lateinit var adapter: RecipeAdapter
 
-    /* ViewModel – built with the single-argument factory */
     private val viewModel: RecipeViewModel by viewModels {
         RecipeViewModel.provideFactory(application)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("CategoriesActivity", "onCreate started")
-
         binding = ActivityCategoriesTemplateBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Get the category from the Intent
-        val categoryName = intent.getStringExtra("CATEGORY_NAME") ?: "All"
-        Log.d("CategoriesTemplate", "Received category: $categoryName")
+        // extras
+        val category   = intent.getStringExtra("CATEGORY_NAME") ?: "All"
+        val searchText = intent.getStringExtra("SEARCH_QUERY") ?: ""
 
-        // Set the title at the top
-        binding.categoryTitle.text = categoryName
+        binding.categoryTitle.text =
+            if (searchText.isBlank()) category else "Results for \"$searchText\""
 
-        /* ---------- RecyclerView setup ---------- */
-        adapter = RecipeAdapter(emptyList()) { recipe ->
-            Toast.makeText(this, "Clicked: ${recipe.title}", Toast.LENGTH_SHORT).show()
+        // adapter
+        adapter = RecipeAdapter(emptyList()) { r ->
+            Toast.makeText(this, r.title, Toast.LENGTH_SHORT).show()
         }
         binding.recipeRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.recipeRecyclerView.adapter = adapter
 
-        /* ---------- Observe Room data ---------- */
+        // observe DB
         val liveData =
-            if (categoryName == "All") viewModel.allRecipes
-            else viewModel.recipesByCategory(categoryName)
+            if (category == "All") viewModel.allRecipes
+            else viewModel.recipesByCategory(category)
 
-        liveData.observe(this) { list ->
-            Log.d("CategoriesTemplate", "Loaded ${list.size} recipes")
-            adapter.updateRecipes(list)            // refresh adapter
+        liveData.observe(this) { all ->
+            val shown = if (searchText.isBlank()) all
+            else all.filter { it.title.contains(searchText, true) }
+
+            adapter.updateRecipes(shown)
             binding.emptyHint.visibility =
-                if (list.isEmpty()) android.view.View.VISIBLE
+                if (shown.isEmpty()) android.view.View.VISIBLE
                 else android.view.View.GONE
         }
     }

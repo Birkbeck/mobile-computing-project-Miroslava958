@@ -46,6 +46,8 @@
     <string name="dessert_icon_desc">Dessert icon</string>
     <string name="others_icon_desc">Others icon</string>
 
+    <string name="empty_hint">No recipes yet</string>
+
     <!-- List categories -->
     <string name="breakfast_title">BREAKFAST</string>
     <string name="brunch_title">BRUNCH</string>
