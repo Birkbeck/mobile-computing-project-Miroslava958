@@ -17,8 +17,9 @@ class RecipeAdapter(
 ) : RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
 
     init {
-        Log.d("Adapter", "Adapter initialized with ${recipes.size} items")  // 🔍 Confirm adapter is constructed
+        Log.d("Adapter", "Adapter initialized with ${recipes.size} items")
     }
+
     /**
      * ViewHolder class that binds the Recipe data to the item layout.
      */
@@ -28,7 +29,10 @@ class RecipeAdapter(
             Log.d("RecipeAdapter", "Binding recipe: ${recipe.title}")
             binding.recipe = recipe  // Binds to @{recipe.title}.
             binding.executePendingBindings()
+
+            // Handle click on the entire item
             binding.root.setOnClickListener {
+                Log.d("RecipeAdapter", "Recipe clicked: ${recipe.title}")
                 onItemClick(recipe)
             }
         }

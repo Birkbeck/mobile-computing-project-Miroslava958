@@ -2,7 +2,6 @@ package com.miroslava958.culinarycompanion.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,9 +32,14 @@ class CategoriesTemplateActivity : AppCompatActivity() {
             if (searchText.isBlank()) category else "Results for \"$searchText\""
 
         // adapter
-        adapter = RecipeAdapter(emptyList()) { r ->
-            Toast.makeText(this, r.title, Toast.LENGTH_SHORT).show()
+        adapter = RecipeAdapter(emptyList()) { recipe ->
+            val intent = Intent(this, RecipeActivity::class.java)
+            intent.putExtra("RECIPE_TITLE", recipe.title)
+            intent.putExtra("RECIPE_INGREDIENTS", recipe.ingredients)
+            intent.putExtra("RECIPE_INSTRUCTIONS", recipe.instructions)
+            startActivity(intent)
         }
+
         binding.recipeRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.recipeRecyclerView.adapter = adapter
 

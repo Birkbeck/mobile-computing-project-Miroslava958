@@ -33,6 +33,10 @@
             android:name=".ui.CategoriesTemplateActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".ui.RecipeActivity"
+            android:exported="false" />
+
         <!-- +Add recipe screen -->
         <activity
             android:name=".ui.AddRecipeActivity"
