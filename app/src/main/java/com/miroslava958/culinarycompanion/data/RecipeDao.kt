@@ -1,10 +1,7 @@
 package com.miroslava958.culinarycompanion.data
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.miroslava958.culinarycompanion.model.Recipe
 
 @Dao
@@ -18,4 +15,13 @@ interface RecipeDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(recipe: Recipe)
+
+    @Update
+    suspend fun updateRecipe(recipe: Recipe)
+
+    @Query("SELECT COUNT(*) FROM recipes WHERE LOWER(title) = LOWER(:title)")
+    suspend fun countByTitle(title: String): Int
+
+    @Query("SELECT * FROM recipes WHERE id = :id LIMIT 1")
+    suspend fun getById(id: Int): Recipe?
 }

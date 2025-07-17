@@ -20,6 +20,7 @@
     <string name="instructions_hint">e.g. mix until smooth texture</string>
     <string name="category">Category</string>
     <string name="save">SAVE</string>
+    <string name="update">Update</string>
 
     <string-array name="recipe_categories">
         <item>Breakfast</item>

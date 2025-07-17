@@ -34,9 +34,11 @@ class CategoriesTemplateActivity : AppCompatActivity() {
         // adapter
         adapter = RecipeAdapter(emptyList()) { recipe ->
             val intent = Intent(this, RecipeActivity::class.java)
+            intent.putExtra("RECIPE_ID", recipe.id)
             intent.putExtra("RECIPE_TITLE", recipe.title)
             intent.putExtra("RECIPE_INGREDIENTS", recipe.ingredients)
             intent.putExtra("RECIPE_INSTRUCTIONS", recipe.instructions)
+            intent.putExtra("RECIPE_CATEGORY", recipe.category)
             startActivity(intent)
         }
 

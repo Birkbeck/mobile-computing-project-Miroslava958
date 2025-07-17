@@ -6,6 +6,7 @@ import com.miroslava958.culinarycompanion.data.AppDatabase
 import com.miroslava958.culinarycompanion.data.RecipeRepository
 import com.miroslava958.culinarycompanion.model.Recipe
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class RecipeViewModel private constructor(            // ← private ctor
     application: Application,
@@ -26,6 +27,25 @@ class RecipeViewModel private constructor(            // ← private ctor
     fun addRecipe(recipe: Recipe) = viewModelScope.launch {
         repository.insert(recipe)
     }
+
+    fun updateRecipe(recipe: Recipe) {
+        viewModelScope.launch {
+            repository.updateRecipe(recipe)
+        }
+    }
+
+    fun isDuplicateRecipeTitle(title: String): Boolean {
+        return runBlocking {
+            repository.isDuplicateTitle(title)
+        }
+    }
+
+    fun getRecipeById(id: Int): Recipe? {
+        return runBlocking {
+            repository.getRecipeById(id)
+        }
+    }
+
 
     /* ---------- factory ---------- */
     companion object {
