@@ -31,6 +31,7 @@ class ViewCategoriesActivity : AppCompatActivity() {
 
         binding.btnMainAdd.setOnClickListener {
             val intent = Intent(this, AddRecipeActivity::class.java)
+            intent.putExtra("RECIPE_CATEGORY", "Others") // default category
             startActivity(intent)
         }
 

@@ -15,6 +15,9 @@ class CategoriesTemplateActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCategoriesTemplateBinding
     private lateinit var adapter: RecipeAdapter
 
+    private lateinit var category: String
+    private lateinit var searchText: String
+
     private val viewModel: RecipeViewModel by viewModels {
         RecipeViewModel.provideFactory(application)
     }
@@ -24,14 +27,12 @@ class CategoriesTemplateActivity : AppCompatActivity() {
         binding = ActivityCategoriesTemplateBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // extras
-        val category   = intent.getStringExtra("CATEGORY_NAME") ?: "All"
-        val searchText = intent.getStringExtra("SEARCH_QUERY") ?: ""
+        category = intent.getStringExtra("CATEGORY_NAME") ?: "All"
+        searchText = intent.getStringExtra("SEARCH_QUERY") ?: ""
 
         binding.categoryTitle.text =
             if (searchText.isBlank()) category else "Results for \"$searchText\""
 
-        // adapter
         adapter = RecipeAdapter(emptyList()) { recipe ->
             val intent = Intent(this, RecipeActivity::class.java)
             intent.putExtra("RECIPE_ID", recipe.id)
@@ -45,7 +46,26 @@ class CategoriesTemplateActivity : AppCompatActivity() {
         binding.recipeRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.recipeRecyclerView.adapter = adapter
 
-        // observe DB
+        // buttons
+        binding.btnHome.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+            startActivity(intent)
+        }
+
+        binding.btnMainAdd.setOnClickListener {
+            val intent = Intent(this, AddRecipeActivity::class.java)
+            intent.putExtra("RECIPE_CATEGORY", category) // This makes it pre-select the current category
+            startActivity(intent)
+        }
+
+        binding.btnBack.setOnClickListener {
+            finish()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
         val liveData =
             if (category == "All") viewModel.allRecipes
             else viewModel.recipesByCategory(category)
@@ -54,27 +74,9 @@ class CategoriesTemplateActivity : AppCompatActivity() {
             val shown = if (searchText.isBlank()) all
             else all.filter { it.title.contains(searchText, true) }
 
-            adapter.updateRecipes(shown)
-            binding.emptyHint.visibility =
-                if (shown.isEmpty()) android.view.View.VISIBLE
-                else android.view.View.GONE
-        }
+            val sorted = shown.sortedBy { it.title.lowercase() }
 
-        // Home
-        binding.btnHome.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
-            startActivity(intent)
-        }
-
-        // ADD button
-        binding.btnMainAdd.setOnClickListener {
-            val intent = Intent(this, AddRecipeActivity::class.java)
-            startActivity(intent)
-        }
-
-        binding.btnBack.setOnClickListener {
-            finish() // closes this screen and returns to previous one
+            adapter.updateRecipes(sorted)
         }
     }
 }

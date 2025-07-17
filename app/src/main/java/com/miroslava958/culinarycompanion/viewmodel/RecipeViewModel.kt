@@ -28,6 +28,10 @@ class RecipeViewModel private constructor(            // ← private ctor
         repository.insert(recipe)
     }
 
+    fun deleteRecipe(recipe: Recipe) = viewModelScope.launch {
+        repository.delete(recipe)
+    }
+
     fun updateRecipe(recipe: Recipe) {
         viewModelScope.launch {
             repository.updateRecipe(recipe)

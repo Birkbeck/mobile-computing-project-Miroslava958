@@ -3,12 +3,22 @@ package com.miroslava958.culinarycompanion.ui
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.miroslava958.culinarycompanion.MainActivity
 import com.miroslava958.culinarycompanion.databinding.ActivityRecipeBinding
+import com.miroslava958.culinarycompanion.model.Recipe
+import com.miroslava958.culinarycompanion.viewmodel.RecipeViewModel
+import androidx.activity.viewModels
+import kotlinx.coroutines.launch
 
 class RecipeActivity : AppCompatActivity() {
 
+    private val viewModel: RecipeViewModel by viewModels {
+        RecipeViewModel.provideFactory(application)
+    }
     private lateinit var binding: ActivityRecipeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,5 +64,34 @@ class RecipeActivity : AppCompatActivity() {
             intent.putExtra("RECIPE_CATEGORY", category)
             startActivity(intent)
         }
+
+        binding.btnDelete.setOnClickListener {
+            AlertDialog.Builder(this)
+                .setTitle("Delete Recipe")
+                .setMessage("Are you sure you want to delete this recipe?")
+                .setPositiveButton("Yes") { _, _ ->
+                    lifecycleScope.launch {
+                        // Optional: retrieve from DB to ensure it's the latest version
+                        val recipe = Recipe(
+                            id = recipeId,
+                            title = binding.recipeTitle.text.toString(),
+                            ingredients = binding.ingredients.text.toString(),
+                            instructions = binding.instructions.text.toString(),
+                            category = intent.getStringExtra("RECIPE_CATEGORY") ?: "Others"
+                        )
+                        viewModel.deleteRecipe(recipe)
+                        Toast.makeText(this@RecipeActivity, "Recipe deleted", Toast.LENGTH_SHORT).show()
+
+                        // Navigate back to category
+                        val intent = Intent(this@RecipeActivity, CategoriesTemplateActivity::class.java)
+                        intent.putExtra("CATEGORY_NAME", recipe.category)
+                        startActivity(intent)
+                        finish()
+                    }
+                }
+                .setNegativeButton("Cancel", null)
+                .show()
+        }
+
     }
 }

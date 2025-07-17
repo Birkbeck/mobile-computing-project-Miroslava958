@@ -13,6 +13,10 @@ class RecipeRepository(private val dao: RecipeDao) {
         dao.updateRecipe(recipe)
     }
 
+    suspend fun delete(recipe: Recipe) {
+        dao.delete(recipe)
+    }
+
     suspend fun isDuplicateTitle(title: String): Boolean {
         return dao.countByTitle(title) > 0
     }

@@ -1,5 +1,6 @@
 package com.miroslava958.culinarycompanion.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -41,7 +42,11 @@ class AddRecipeActivity : AppCompatActivity() {
             binding.ingredientsInput.setText(ingredientsFromIntent)
             binding.instructionsInput.setText(instructionsFromIntent)
 
-            // Set the correct category in spinner
+            binding.saveButton.text = getString(com.miroslava958.culinarycompanion.R.string.update)
+        }
+
+        // Always set spinner selection from intent (for both Add and Edit)
+        binding.categorySpinner.post {
             val adapter = binding.categorySpinner.adapter
             for (i in 0 until adapter.count) {
                 if (adapter.getItem(i)?.toString() == categoryFromIntent) {
@@ -49,9 +54,8 @@ class AddRecipeActivity : AppCompatActivity() {
                     break
                 }
             }
-
-            binding.saveButton.text = getString(com.miroslava958.culinarycompanion.R.string.update)
         }
+
 
         // Cancel (X) button
         binding.cancelButton.setOnClickListener { finish() }
@@ -59,6 +63,9 @@ class AddRecipeActivity : AppCompatActivity() {
         // Save button
         binding.saveButton.setOnClickListener {
             val title = binding.recipeNameInput.text.toString().trim()
+            val formattedTitle = title.replaceFirstChar {
+                if (it.isLowerCase()) it.titlecase() else it.toString()
+            }
             val ingredients = binding.ingredientsInput.text.toString().trim()
             val instructions = binding.instructionsInput.text.toString().trim()
             val category = binding.categorySpinner.selectedItem.toString()
@@ -70,16 +77,21 @@ class AddRecipeActivity : AppCompatActivity() {
 
             lifecycleScope.launch {
                 val isDuplicate = viewModel.isDuplicateRecipeTitle(title)
-                val isSameAsExisting = isEditMode && viewModel.getRecipeById(existingId)?.title == title
+                val isSameAsExisting =
+                    isEditMode && viewModel.getRecipeById(existingId)?.title == title
 
                 if (isDuplicate && !isSameAsExisting) {
-                    Toast.makeText(this@AddRecipeActivity, "A recipe with this title already exists.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@AddRecipeActivity,
+                        "A recipe with this title already exists.",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     return@launch
                 }
 
                 val recipe = Recipe(
                     id = if (isEditMode) existingId else 0,
-                    title = title,
+                    title = formattedTitle,
                     category = category,
                     ingredients = ingredients,
                     instructions = instructions
@@ -87,12 +99,17 @@ class AddRecipeActivity : AppCompatActivity() {
 
                 if (isEditMode) {
                     viewModel.updateRecipe(recipe)
-                    Toast.makeText(this@AddRecipeActivity, "Recipe updated!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@AddRecipeActivity, "Recipe updated!", Toast.LENGTH_SHORT)
+                        .show()
                 } else {
                     viewModel.addRecipe(recipe)
-                    Toast.makeText(this@AddRecipeActivity, "Recipe saved!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@AddRecipeActivity, "Recipe saved!", Toast.LENGTH_SHORT)
+                        .show()
                 }
 
+                val intent = Intent(this@AddRecipeActivity, CategoriesTemplateActivity::class.java)
+                intent.putExtra("CATEGORY_NAME", recipe.category)
+                startActivity(intent)
                 finish()
             }
         }

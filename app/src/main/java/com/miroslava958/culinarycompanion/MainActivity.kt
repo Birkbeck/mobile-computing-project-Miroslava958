@@ -16,11 +16,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    // ViewModel for later
-    private val viewModel: RecipeViewModel by viewModels {
-        RecipeViewModel.provideFactory(application)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -30,7 +25,9 @@ class MainActivity : AppCompatActivity() {
 
         // Buttons
         binding.btnMainAdd.setOnClickListener {
-            startActivity(Intent(this, AddRecipeActivity::class.java))
+            val intent = Intent(this, AddRecipeActivity::class.java)
+            intent.putExtra("RECIPE_CATEGORY", "Others") // default category
+            startActivity(intent)
         }
         binding.btnMainView.setOnClickListener {
             startActivity(Intent(this, ViewCategoriesActivity::class.java))
