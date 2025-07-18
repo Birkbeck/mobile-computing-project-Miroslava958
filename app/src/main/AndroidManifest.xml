@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+    Declares the components of the application like activities, launcher, and configuration settings.
+-->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Permissions -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+
+    <!-- The application block where the global settings are defined -->
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,7 +21,10 @@
         android:theme="@style/Theme.CulinaryCompanion"
         tools:targetApi="31">
 
-        <!-- Launcher -->
+        <!--
+            Main launcher activity, the first screen shown when the app starts.
+            It is exported so the launcher system can access it.
+        -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -23,21 +34,22 @@
             </intent-filter>
         </activity>
 
-        <!-- Category list screen -->
+        <!-- Activity that shows a list of all available categories -->
         <activity
             android:name=".ui.ViewCategoriesActivity"
             android:exported="false" />
 
-        <!-- Recipes category screen -->
+        <!-- Activity that displays recipes for a given category -->
         <activity
             android:name=".ui.CategoriesTemplateActivity"
             android:exported="false" />
 
+        <!-- Activity that shows full details for a selected recipe -->
         <activity
             android:name=".ui.RecipeActivity"
             android:exported="false" />
 
-        <!-- +Add recipe screen -->
+        <!-- Activity use to create/edit a recipe -->
         <activity
             android:name=".ui.AddRecipeActivity"
             android:exported="false" />

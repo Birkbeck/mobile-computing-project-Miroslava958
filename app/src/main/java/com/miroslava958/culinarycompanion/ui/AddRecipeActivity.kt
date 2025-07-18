@@ -10,13 +10,18 @@ import androidx.lifecycle.lifecycleScope
 import com.miroslava958.culinarycompanion.databinding.ActivityAddRecipeBinding
 import com.miroslava958.culinarycompanion.model.Recipe
 import com.miroslava958.culinarycompanion.viewmodel.RecipeViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
+/**
+ * This class lets the user add a new recipe or edit an existing one.
+ */
 class AddRecipeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddRecipeBinding
 
-    /* ViewModel obtained via the single-argument factory */
+    // ViewModel that gives access to the database through the repository
     private val viewModel: RecipeViewModel by viewModels {
         RecipeViewModel.provideFactory(application)
     }
@@ -26,26 +31,26 @@ class AddRecipeActivity : AppCompatActivity() {
         binding = ActivityAddRecipeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Shared intent values
+        // Check if editing an existing recipe
         val isEditMode = intent.getBooleanExtra("EDIT_MODE", false)
         val existingId = intent.getIntExtra("RECIPE_ID", -1)
         Log.d("AddRecipeActivity", "Editing recipe with ID: $existingId")
 
+        // Get recipe details passed through the intent
         val titleFromIntent = intent.getStringExtra("RECIPE_TITLE") ?: ""
         val ingredientsFromIntent = intent.getStringExtra("RECIPE_INGREDIENTS") ?: ""
         val instructionsFromIntent = intent.getStringExtra("RECIPE_INSTRUCTIONS") ?: ""
         val categoryFromIntent = intent.getStringExtra("RECIPE_CATEGORY") ?: "Others"
 
         if (isEditMode) {
-            // Pre-fill form with existing recipe data
+            // Fill in the form with existing data
             binding.recipeNameInput.setText(titleFromIntent)
             binding.ingredientsInput.setText(ingredientsFromIntent)
             binding.instructionsInput.setText(instructionsFromIntent)
-
             binding.saveButton.text = getString(com.miroslava958.culinarycompanion.R.string.update)
         }
 
-        // Always set spinner selection from intent (for both Add and Edit)
+        // Set the selected item in the category spinner
         binding.categorySpinner.post {
             val adapter = binding.categorySpinner.adapter
             for (i in 0 until adapter.count) {
@@ -56,8 +61,7 @@ class AddRecipeActivity : AppCompatActivity() {
             }
         }
 
-
-        // Cancel (X) button
+        // Cancel button
         binding.cancelButton.setOnClickListener { finish() }
 
         // Save button
@@ -70,13 +74,17 @@ class AddRecipeActivity : AppCompatActivity() {
             val instructions = binding.instructionsInput.text.toString().trim()
             val category = binding.categorySpinner.selectedItem.toString()
 
+            // Make sure all fields are filled
             if (title.isBlank() || ingredients.isBlank() || instructions.isBlank()) {
                 Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
+            // Check for duplicate title
             lifecycleScope.launch {
-                val isDuplicate = viewModel.isDuplicateRecipeTitle(title)
+                val isDuplicate = withContext(Dispatchers.IO) {
+                    viewModel.isDuplicateRecipeTitle(title)
+                }
                 val isSameAsExisting =
                     isEditMode && viewModel.getRecipeById(existingId)?.title == title
 
@@ -89,6 +97,7 @@ class AddRecipeActivity : AppCompatActivity() {
                     return@launch
                 }
 
+                // Create recipe object
                 val recipe = Recipe(
                     id = if (isEditMode) existingId else 0,
                     title = formattedTitle,
@@ -97,6 +106,7 @@ class AddRecipeActivity : AppCompatActivity() {
                     instructions = instructions
                 )
 
+                // Save or update the recipe
                 if (isEditMode) {
                     viewModel.updateRecipe(recipe)
                     Toast.makeText(this@AddRecipeActivity, "Recipe updated!", Toast.LENGTH_SHORT)
@@ -107,6 +117,7 @@ class AddRecipeActivity : AppCompatActivity() {
                         .show()
                 }
 
+                // Go to category screen after saving
                 val intent = Intent(this@AddRecipeActivity, CategoriesTemplateActivity::class.java)
                 intent.putExtra("CATEGORY_NAME", recipe.category)
                 startActivity(intent)
@@ -115,4 +126,3 @@ class AddRecipeActivity : AppCompatActivity() {
         }
     }
 }
-

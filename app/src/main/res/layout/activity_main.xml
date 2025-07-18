@@ -7,7 +7,7 @@
     android:padding="24dp"
     android:background="#FFFFFF">
 
-    <!-- App Logo -->
+    <!-- App Logo at the top -->
     <ImageView
         android:layout_width="280dp"
         android:layout_height="280dp"
@@ -16,7 +16,7 @@
         android:contentDescription="@string/app_logo_description"
         android:src="@drawable/logo" />
 
-    <!-- Multi-line Welcome Text -->
+    <!-- Welcome message shown below the logo -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,13 +27,13 @@
         android:gravity="center"
         android:layout_marginBottom="16dp" />
 
-    <!-- Spacer to push buttons to the bottom -->
+    <!-- Empty space to push buttons to the bottom -->
     <View
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <!-- Bottom Button Bar -->
+    <!-- Bottom navigation buttons: Add, View, Search -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -41,6 +41,7 @@
         android:gravity="center"
         android:layout_marginBottom="16dp">
 
+        <!-- Add new recipe button -->
         <Button
             android:id="@+id/btnMainAdd"
             android:layout_width="wrap_content"
@@ -50,6 +51,7 @@
             android:textColor="#000000"
             android:backgroundTint="#FFA500" />
 
+        <!-- View categories button -->
         <Button
             android:id="@+id/btnMainView"
             android:layout_width="wrap_content"
@@ -61,6 +63,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp" />
 
+        <!-- Search icon button -->
         <ImageButton
             android:id="@+id/btnSearch"
             android:layout_width="48dp"
