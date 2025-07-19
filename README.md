@@ -23,25 +23,25 @@ Culinary Companion is a Android application built with Kotlin using MVVM archite
 ## Project Structure
 
 CulinaryCompanion/
-├── data/
-  ├── AppDatabase.kt
-	├── RecipeDao
-  └── RecipeRepository.kt
-├── model/
-   └── Recipe.kt
-├── ui/
-  ├── CategoriesTemplateActiviry.kt
-	├── RecipeActivity
-	├── ViewCategooriesActivity
-  └── AddRecipeActivity.kt
-├── viewmodel/
-  └── RecipeViewModel.kt
-├── res/
-  ├── layout/
-  ├── values/
-  └── drawable/
-└── test/
-   └── RecipeTest.kt
+1. data/
+1.1. AppDatabase.kt
+1.2. RecipeDao.kt
+1.3. RecipeRepository.kt
+2. model/
+2.1. Recipe.kt
+3. ui/
+3.1. CategoriesTemplateActiviry.kt
+3.2. RecipeActivity
+3.3. ViewCategooriesActivity
+3.4. AddRecipeActivity.kt
+4. viewmodel/
+4.1. RecipeViewModel.kt
+5. res/
+5.1. layout/
+5.2. values/
+5.3. drawable/
+6. test/
+6.1. RecipeTest.kt
 
 ## Testing
 
