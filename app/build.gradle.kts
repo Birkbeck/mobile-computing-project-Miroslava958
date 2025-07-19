@@ -52,10 +52,19 @@ dependencies {
     implementation("androidx.activity:activity-ktx:1.8.2")
 
     implementation("androidx.room:room-runtime:2.7.0-alpha01")
+    implementation(libs.androidx.espresso.core)
+    implementation(libs.androidx.junit.ktx)
     kapt("androidx.room:room-compiler:2.7.0-alpha01")
     implementation("androidx.room:room-ktx:2.7.0-alpha01")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    testImplementation("org.mockito:mockito-core:5.2.0")
+    testImplementation("androidx.arch.core:core-testing:2.2.0")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation("androidx.test:runner:1.5.2")
+    androidTestImplementation("androidx.test:rules:1.5.0")
 }

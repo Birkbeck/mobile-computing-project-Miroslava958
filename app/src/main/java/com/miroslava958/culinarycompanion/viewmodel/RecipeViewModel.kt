@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
  * It handles all logic related to recipes using the Repository.
  */
 
-class RecipeViewModel private constructor( // Private constructor used by factory
+class RecipeViewModel private constructor( // Constructor used by factory
     application: Application,
 ) : AndroidViewModel(application) {
 
